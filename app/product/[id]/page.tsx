@@ -156,8 +156,10 @@ export default function ProductPage() {
               src={mainImage}
               alt={product.title}
               onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  "https://placehold.co/500x600?text=Image";
+                const img = e.target as HTMLImageElement;
+                if (img.dataset.fallback) return; // cheksiz tsiklni oldini olish
+                img.dataset.fallback = "true";
+                img.src = "https://placehold.co/500x600?text=Image";
               }}
               className="w-full h-full object-contain"
             />

@@ -28,8 +28,10 @@ export default function ProductCard({
           src={image}
           alt={title}
           onError={(e) => {
-            (e.target as HTMLImageElement).src =
-              "https://placehold.co/240x240?text=Image";
+            const img = e.target as HTMLImageElement;
+            if (img.dataset.fallback) return; // cheksiz tsiklni oldini olish
+            img.dataset.fallback = "true";
+            img.src = "https://placehold.co/240x240?text=Image";
           }}
           className="max-w-full max-h-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
         />
